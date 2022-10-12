@@ -1,0 +1,3 @@
+com\knigaliz\domain\User.class
+com\knigaliz\controllers\HomeController.class
+com\knigaliz\KnigalizApplication.class
