@@ -1,7 +1,6 @@
-package com.knigaliz.accounts.security;
+package com.example.springsecurityrest.security;
 
-
-import com.knigaliz.accounts.services.UserDetailsService;
+import com.example.springsecurityrest.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,22 +13,19 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 
 @Component
-public class AuthProviderImpl implements AuthenticationProvider {
-    private final UserDetailsService userDetailsService;
+public class AuthenticationProviderImpl implements AuthenticationProvider {
+    private final UserService userService;
 
     @Autowired
-    public AuthProviderImpl(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public AuthenticationProviderImpl(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = authentication.getName();
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = userService.loadUserByUsername(authentication.getName());
         String password = authentication.getCredentials().toString();
-
-        if(!password.equals(userDetails.getPassword())) throw new BadCredentialsException("Password is wrong");
-
+        if(!password.equals(userDetails.getPassword())) throw new BadCredentialsException("Bad credentials");
         return new UsernamePasswordAuthenticationToken(userDetails, password, Collections.emptyList());
     }
 

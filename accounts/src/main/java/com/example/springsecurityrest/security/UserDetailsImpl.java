@@ -1,32 +1,32 @@
-package com.knigaliz.accounts.security;
+package com.example.springsecurityrest.security;
 
-import com.knigaliz.accounts.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springsecurityrest.entities.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
-public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
-    private final User user;
+public class UserDetailsImpl implements UserDetails {
+    private final UserEntity user;
 
-    @Autowired
-    public UserDetails(User user) {
+    public UserDetailsImpl(UserEntity user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public String getPassword() {
-        return this.user.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.user.getLogin();
+        return user.getLogin();
     }
 
     @Override
@@ -47,9 +47,5 @@ public class UserDetails implements org.springframework.security.core.userdetail
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public User getUser() {
-        return this.user;
     }
 }
