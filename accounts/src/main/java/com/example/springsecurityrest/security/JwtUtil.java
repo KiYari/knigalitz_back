@@ -15,7 +15,7 @@ public class JwtUtil {
     private final String secret = "secretksecretisecretm";
 
     public String generateToken(String login) {
-        Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(30).toInstant());
+        Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(1).toInstant());
 
         return JWT.create()
                 .withSubject("User details")
@@ -33,6 +33,7 @@ public class JwtUtil {
                 .build();
 
         DecodedJWT jwt = verifier.verify(token);
+        System.out.println("no expired chcek");
 
         return jwt.getClaim("login").asString();
     }

@@ -15,6 +15,7 @@ import java.util.List;
 public class UserEntity {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "login")
     private String login;
