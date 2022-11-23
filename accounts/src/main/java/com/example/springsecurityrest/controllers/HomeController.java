@@ -36,7 +36,6 @@ public class HomeController {
     @GetMapping("/roles")
     public String roles(Principal principal) {
         UserEntity user = userService.findByLogin(principal.getName());
-        List<Role> roles = userService.findUserRolesById(user.getId());
-        return user.toString();
+        return user.getRoles().toString();
     }
 }
