@@ -1,11 +1,10 @@
 package com.example.springsecurityrest.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -29,10 +28,8 @@ public class UserEntity {
     private long timeReg;
 
     @ManyToMany
-    @JoinTable(name = "roles",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role"))
+    @JoinTable(name = "user_role",
+    joinColumns = @JoinColumn(name = "user_id"  ),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
     List<Role> roles;
-
-
 }

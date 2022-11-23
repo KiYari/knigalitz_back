@@ -1,27 +1,31 @@
 package com.example.springsecurityrest.services;
 
+import com.example.springsecurityrest.entities.Role;
 import com.example.springsecurityrest.entities.UserEntity;
+import com.example.springsecurityrest.repositories.RoleRepository;
 import com.example.springsecurityrest.repositories.UserRepository;
 import com.example.springsecurityrest.security.UserDetailsImpl;
 import com.example.springsecurityrest.util.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -36,11 +40,26 @@ public class UserService implements UserDetailsService {
                 new UserNotFoundException(String.format("There is no user %s present in database", login)));
     }
 
+    public List<Role> findUserRolesById(int id) {
+        try{
+            System.out.println(roleRepository.findById(1)+" " + roleRepository.findById(2));
+            return roleRepository.findAllByUserId(id);
+        } catch (Exception e) {
+            throw new UserNotFoundException("No Roles found by this User");
+        }
+
+    }
+
     public UserEntity createAndRetriveUser(UserEntity user) {
         user.setLocationReg("Vladivostok");
         user.setTimeReg(System.currentTimeMillis());
-        user.setRoles(Collections.emptyList());
-        userRepository.save(user);
+        System.out.println(user.getId());
+        UserEntity user1 = userRepository.save(user);
+
+        Role role = roleRepository.getById(1);
+        user.setRoles(new ArrayList<>(){{
+            add(role);
+        }});
 
         return user;
     }
