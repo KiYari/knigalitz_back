@@ -2,6 +2,7 @@ package com.knigaliz.sample_service.config.filters;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.knigaliz.sample_service.security.JwtUtil;
+import com.knigaliz.sample_service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,7 +1,7 @@
 package com.knigaliz.sample_service.config;
 
-import com.example.springsecurityrest.config.filters.JwtFilter;
-import com.example.springsecurityrest.security.AuthenticationProviderImpl;
+import com.knigaliz.sample_service.config.filters.JwtFilter;
+import com.knigaliz.sample_service.security.AuthenticationProviderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
