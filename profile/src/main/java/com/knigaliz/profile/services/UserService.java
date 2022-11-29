@@ -48,18 +48,4 @@ public class UserService implements UserDetailsService {
         }
 
     }
-
-    public UserEntity createAndRetriveUser(UserEntity user) {
-        user.setLocationReg("Vladivostok");
-        user.setTimeReg(System.currentTimeMillis());
-        System.out.println(user.getId());
-        UserEntity user1 = userRepository.save(user);
-
-        Role role = roleRepository.getById(1);
-        user.setRoles(new ArrayList<>(){{
-            add(role);
-        }});
-
-        return user;
-    }
 }
