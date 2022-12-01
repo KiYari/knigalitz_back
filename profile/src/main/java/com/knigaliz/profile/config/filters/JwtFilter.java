@@ -43,9 +43,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 if (SecurityContextHolder.getContext().getAuthentication() == null) {
                     SecurityContextHolder.getContext().setAuthentication(token);
                 }
-            } catch (JWTVerificationException e) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "token is expired");
-                } catch (Exception e) {
+            } catch (Exception e) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST,"invalid token");
             }
 

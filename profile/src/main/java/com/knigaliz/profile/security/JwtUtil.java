@@ -15,7 +15,7 @@ public class JwtUtil {
     private final String secret = "secretksecretisecretm";
 
     public String generateToken(String login) {
-        Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(1).toInstant());
+        Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(30).toInstant());
 
         return JWT.create()
                 .withSubject("User details")
@@ -32,9 +32,14 @@ public class JwtUtil {
                 .withIssuer("auth-server")
                 .build();
 
-        DecodedJWT jwt = verifier.verify(token);
-        System.out.println("no expired chcek");
+        DecodedJWT jwt = JWT.decode(token);
+        expirationCheck(jwt);
+        verifier.verify(jwt);
 
         return jwt.getClaim("login").asString();
+    }
+
+    public void expirationCheck(DecodedJWT jwt) {
+        if (jwt.getExpiresAt().before(new Date())) throw new JWTVerificationException("token already expired");
     }
 }
