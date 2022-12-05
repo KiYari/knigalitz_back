@@ -11,5 +11,6 @@ spring:
     url: jdbc:postgresql://26.175.81.229:5432/facebook
     username: postgres
     password: root
-
 secret: secretksecretisecretm
+server:
+  port: 8082

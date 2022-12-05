@@ -30,5 +30,8 @@ public class UserEntity {
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"  ),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
-    List<Role> roles;
+    private List<Role> roles;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Post> posts;
 }
