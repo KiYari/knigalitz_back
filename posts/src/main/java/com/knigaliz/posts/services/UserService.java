@@ -40,6 +40,11 @@ public class UserService implements UserDetailsService {
                 new UserNotFoundException(String.format("There is no user %s present in database", login)));
     }
 
+    public UserEntity findById(int id) {
+        return userRepository.findById(id).orElseThrow(() ->
+                new UserNotFoundException("There is no user with such id"));
+    }
+
     public List<Role> findUserRolesById(int id) {
         try{
             System.out.println(roleRepository.findById(1)+" " + roleRepository.findById(2));
